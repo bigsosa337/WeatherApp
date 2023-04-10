@@ -1,7 +1,7 @@
 <template>
   <div class="grid">
     <div class="city-link" v-for="(city, index) in cities" v-bind:key="index">
-      <CityComp v-bind:city="city" />
+      <CityComp class="citycard" v-bind:city="city" />
     </div>
   </div>
 </template>
@@ -36,5 +36,7 @@ export default {
   .city-link {
     margin: 10px;
   }
+
+  
 }
 </style>
