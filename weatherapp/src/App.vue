@@ -1,0 +1,43 @@
+<template>
+  <div>
+  </div>
+</template>
+
+
+<script>
+import axios from "axios"
+
+export default {
+  name: "App",
+  data() {
+    return {
+    APIkey: "8f682a995a53fb3c82ab7fb6f6bcec48",
+    city: "Bucharest",
+    };
+  },
+  created() {
+    this.getCurrentWeather();
+  },
+  methods: {
+    getCurrentWeather() {
+      axios.get(
+        `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=metric&appid=${this.APIkey}`
+      ).then(res => {
+        console.log(res.data)
+      })
+    },
+  },
+};
+
+
+</script>
+
+
+<style lang="scss">
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Raleway", sans-serif;
+}
+</style>
