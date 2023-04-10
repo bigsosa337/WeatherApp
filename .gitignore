@@ -2,7 +2,7 @@
 
 # Default location for output (needs to match output_dir's value found in nanoc.yaml)
 output/
-
+node_modules
 # Temporary file directory
 tmp/nanoc/
 
