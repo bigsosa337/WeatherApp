@@ -32,5 +32,9 @@ export default {
     grid-template-columns: repeat(2, 1fr);
     
   }
+
+  .city-link {
+    margin: 10px;
+  }
 }
 </style>
