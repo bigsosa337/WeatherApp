@@ -23,11 +23,13 @@ export default {
 
 <style lang="scss" scoped>
 .grid {
+  margin-top: 15px;
   display: grid;
-  padding-top: 80px;
+  padding: 80px 20px 10px 20px;  
   background-color: #31363d;
   width: 100%;
   min-height: 100vh;
+  border-radius: 10px;
   @media (min-width: 400px) {
     grid-template-columns: repeat(2, 1fr);
     
@@ -35,7 +37,10 @@ export default {
 
   .city-link {
     margin: 10px;
+    
   }
+
+ 
 
   
 }
