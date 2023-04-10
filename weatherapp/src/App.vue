@@ -1,6 +1,7 @@
 <template>
   <div class="main">
-    <NavCompVue class="navigation"/>
+    <NavCompVue/>
+    <router-view v-bind:cities="cities"/>
   </div>
 </template>
 
@@ -46,8 +47,6 @@ export default {
           currentWeather: data,
         }).then(() => {
           this.cities.push(doc.data())
-        }).then(() => {
-          console.log(this.cities)
         });
       } catch (err) {
         console.log(err);
@@ -79,13 +78,8 @@ export default {
 
 .main {
   height: 100vh;
-  .navigation {
-    z-index: 99;
-    position: fixed;
-    max-width: 1920px;
-    width: 100%;
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.86);
-  }
+  max-width: 1024px;
+  margin: auto;
 
   .container {
     padding: 0 20px;
