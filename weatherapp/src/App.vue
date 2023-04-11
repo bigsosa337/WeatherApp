@@ -171,14 +171,10 @@ export default {
 }
 .main {
   height: 100vh;
-  max-width: 100%;
-  padding: 0 70px 0 70px;
+  max-width: 1400px;
   margin: auto;
  
-  .container {
-    padding: 0 20px;
-
-  }
+  
 }
 @media(max-width: 500px) {
     .main {

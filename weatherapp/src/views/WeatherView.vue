@@ -125,7 +125,7 @@ export default {
     &::-webkit-scrollbar {
           width: 0px;
           padding-top: 10px;
-          height: 3px;
+          height: 5px;
         }
 
         &::-webkit-scrollbar-track {
