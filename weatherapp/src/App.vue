@@ -1,8 +1,8 @@
 <template>
   <div class="main">
     <ModalPopUp v-if="modalOpen" v-on:close-modal="toggleModal" :APIkey="APIkey"/>
-    <NavCompVue v-on:add-city="toggleModal"/>
-    <router-view v-bind:cities="cities" />
+    <NavCompVue v-on:add-city="toggleModal" v-on:edit-cities="toggleEdit"/>
+    <router-view v-bind:cities="cities" v-bind:edit="edit"/>
   </div>
 </template>
 
@@ -28,6 +28,7 @@ export default {
     city: "Bucharest",
     cities: [],
     modalOpen: null,
+    edit: null,
     };
   },
   created() {
@@ -41,35 +42,32 @@ export default {
   onSnapshot(fireDB, async (snap) => {
     snap.docChanges().forEach(async (change) => {
       const doc = change.doc;
-      if (change.type === "added") {
-        try {
-          const response = await axios.get(
-            `https://api.openweathermap.org/data/2.5/weather?q=${doc.data().city}&units=imperial&APPID=${this.APIkey}`
-          );
-          const data = response.data;
-          await updateDoc(doc.ref, {
-            currentWeather: data,
-          });
+      console.log(doc.type)
+        if (change.type === "added" && !doc.Nd) {
+          try {
+            const response = await axios.get(
+              `https://api.openweathermap.org/data/2.5/weather?q=${doc.data().city}&units=imperial&APPID=${this.APIkey}`
+            );
+            const data = response.data;
+            await updateDoc(doc.ref, {
+              currentWeather: data,
+            });
+            this.cities.push(doc.data());
+          } catch (err) {
+            console.log(err);
+          }
+        } else if (change.type === "added" && doc.Nd) {
           this.cities.push(doc.data());
-        } catch (err) {
-          console.log(err);
         }
-      }
+      });
     });
-  });
-},
-
+  },
   toggleModal() {
     this.modalOpen = !this.modalOpen;
   },
-
-    getCurrentWeather() {
-      axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=metric&appid=${this.APIkey}`
-      ).then(res => {
-        console.log(res.data)
-      })
-    },
+  toggleEdit() {
+    this.edit = !this.edit;
+  },
   },
 };
 

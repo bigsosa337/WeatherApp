@@ -1,5 +1,6 @@
 <template>
     <div class="city">
+        <i @click="removeCity" class="far fa-trash-alt edit" ref="edit" v-if="edit"></i>
         <span>{{ this.city.city }}</span>
         <div class="weather">
             <span>{{ Math.round(this.city.currentWeather.main.temp) }}&deg;</span>
@@ -17,13 +18,38 @@
 </template>
 
 <script>
+import db from '@/firebase/firebaseinit';
+import {  collection, query, where, getDocs, deleteDoc, doc } from "firebase/firestore";
+
 export default {
     name: "CityComp",
-    props: ['city'],
+    props: ['city', 'edit'],
+    data() {
+        return {
+            id: null,
+        }
+    },
     created() {
         console.log(this.city)
+    },
+    methods: {
+       
+        async removeCity() {
+        const querySnapshot = await getDocs(query(collection(db, 'cities'), where('city', '==', this.city.city)));         
+        querySnapshot.forEach((queryDoc) => {
+            this.id = queryDoc.id;
+            deleteDoc(doc(db, 'cities', this.id)).then(() => {
+                console.log('City deleted successfully!');
+            }).catch((error) => {
+                console.error('Error deleting city: ', error);
+            });
+        });
+    },
+
     }
-}
+
+    }
+
 </script>
 
 <style lang="scss" scoped>
@@ -39,6 +65,17 @@ export default {
     min-height: 240px;
     color: #ffff;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+    .edit {
+        border-radius: 0px 15px 0 0 ;
+        border: 10px solid rgb(77,77,77);
+        background-color: rgb(77,77,77);
+        z-index: 1;
+        font-size: 20px;
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+    }
 
     span {
         z-index: 1;

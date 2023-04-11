@@ -3,8 +3,8 @@
     <nav>
         <span>Add City</span>
         <div class="right">
-            <i class="fa fa-pencil"></i>
-            <i class="fa fa-refresh"></i>
+            <i @click="editCities" class="fa fa-pencil"></i>
+            <i @click="reloadApp" class="fa fa-refresh"></i>
             <i @click="addCity" class="fa fa-plus-circle"></i>
         </div>
     </nav>
@@ -17,6 +17,12 @@ export default {
     methods: {
         addCity() {
             this.$emit('add-city');
+        },
+        reloadApp() {
+            location.reload;
+        },
+        editCities() {
+            this.$emit('edit-cities');
         }
     }
 }
