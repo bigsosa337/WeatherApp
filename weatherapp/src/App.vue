@@ -145,10 +145,7 @@ export default {
 //   display: flex;
 //   justify-content: center;
 // }
-// .modalpop {
-//   margin-right: 20px;
-//   padding: 20px;
-// }
+
 
 // .routerview {
 //   display: flex;

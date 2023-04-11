@@ -7,8 +7,8 @@
         <img :src="require(`../../public/conditions/${this.day.weather[0].icon}.svg`)" alt="">
     </div>
     <div class="weather">
-        <span class="high">{{ Math.round(this.day.temp.max) }}</span>
-        <span class="low">{{ Math.round(this.day.temp.min) }}</span>
+        <span class="high">Hi: {{ Math.round(this.day.temp.max) }}&deg;</span>
+        <span class="low">Lo: {{ Math.round(this.day.temp.min) }}&deg;</span>
 
     </div>
   </div>
