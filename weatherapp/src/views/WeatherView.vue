@@ -91,6 +91,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.weather {
+    border-radius: 10px;
+}
    .loading {
     @keyframes spin {
         to {
@@ -115,9 +119,23 @@ export default {
    }
    .weather {
     transition: 500ms ease;
-    overflow:auto;
+    overflow: scroll;
     width: 100%;
     height: 100%;
+    &::-webkit-scrollbar {
+          width: 0px;
+          padding-top: 10px;
+          height: 3px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background: #383838;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: #ccc;
+          border-radius: 10px;
+        }
 
     .weather-wrap {
         overflow: hidden;

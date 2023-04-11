@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="cities.length === 0" class="no-cities">
-      <br>
+      br
       <p>No cities added, add a new one?</p>
     </div>
     <div class="grid">
@@ -51,7 +51,8 @@ button {
   // margin-top: 100px;
   display: grid;
   padding: 30px 20px 30px 20px;  
-  background-color: #31363d;
+  background-color: #0f37865b;
+  backdrop-filter: blur(20px);
   width: 100%;
   // min-height: 100vh;
   border-radius: 10px;

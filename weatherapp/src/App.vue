@@ -116,6 +116,11 @@ export default {
 
 
 <style lang="scss">
+#app {
+  background-image: url('../public/Background.jpg');
+  background-size: cover;
+}
+
 * {
   margin: 0;
   padding: 0;

@@ -2,7 +2,7 @@
     <div>
         <header v-if="addCityActive" class="container add-city">
           <nav>
-              <span>Add City</span>
+              <span>Home</span>
               <div class="right">
                   <i @click="editCities" ref="editCities" class="fa fa-pencil"></i>
                   <i @click="reloadApp" class="fa fa-refresh"></i>
@@ -14,7 +14,7 @@
         <header v-else class="container" :class="{day: isDay, night: isNight}">
             <nav>
                 <router-link class="router-link" :to="{name: 'AddCity'}">
-                    <i class="fas fa-plus"></i>
+                    <i class="fa fa-angle-left"></i>
                 </router-link>
                 <span>
                     {{ new Date().toLocaleDateString("en-us", { weekday: "short"}) }},
@@ -47,10 +47,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container {
+    border-radius: 0 0 10px 10px;
+}
 .add-city {
-        background-color: #313640;
+        background-color: #1351ce9c;
         border-radius: 0 0 10px 10px;
         box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.86);
+        backdrop-filter: blur(20px);
 
     }
 
@@ -78,6 +82,10 @@ header {
     .right {
         i {
             font-size: 20px;
+            &:hover {
+                color: yellowgreen;
+                cursor: pointer;
+            }
         }
 
         i:nth-child(2),
