@@ -70,6 +70,10 @@ export default {
     color: #ffff;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 
+    &:hover {
+        cursor: pointer;
+    }
+
     .edit {
         border-radius: 0px 15px 0 0 ;
         border: 10px solid rgb(77,77,77);
@@ -130,6 +134,7 @@ export default {
             width: 100%;
             top: 0;
             background-color: rgba(0,0,0, 0.2);
+          
         }
     }
 }

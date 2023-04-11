@@ -141,10 +141,10 @@ export default {
   font-family: "Raleway", sans-serif;
 }
 
-// .nav {
-//   display: flex;
-//   justify-content: center;
-// }
+.nav {
+  display: flex;
+  justify-content: center;
+}
 
 
 // .routerview {
@@ -168,7 +168,7 @@ export default {
 }
 .main {
   height: 100vh;
-  max-width: 1024px;
+  max-width: 100%;
   margin: auto;
  
   

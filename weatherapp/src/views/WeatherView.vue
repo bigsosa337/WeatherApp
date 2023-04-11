@@ -91,7 +91,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.main {
+    max-width: 1024px;
+}
 .weather {
     border-radius: 10px;
 }

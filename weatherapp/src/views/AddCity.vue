@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main">
     <div v-if="cities.length === 0" class="no-cities">
       br
       <p>No cities added, add a new one?</p>
@@ -28,7 +28,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.main {
+  max-width: 1024px;
+}
 .no-cities {
   position: absolute;
   // min-height: 100vh;
