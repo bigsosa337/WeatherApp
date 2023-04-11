@@ -1,8 +1,14 @@
 <template>
-  <div class="grid">
+  <div>
+    <div v-if="cities.length === 0" class="no-cities">
+      <br>
+      <p>No cities added, add a new one?</p>
+    </div>
+    <div class="grid">
     <div class="city-link" v-for="(city, index) in cities" v-bind:key="index">
       <CityComp class="citycard" v-bind:city="city" v-bind:edit="edit"/>
     </div>
+  </div>
   </div>
 </template>
 
@@ -22,6 +28,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.no-cities {
+  position: absolute;
+  // min-height: 100vh;
+  max-width: 1024px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+button {
+  margin-top: 16%;
+  padding: 8px 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
 .grid {
   // margin-top: 100px;
   display: grid;
@@ -39,9 +64,5 @@ export default {
     margin: 10px;
     
   }
-
- 
-
-  
 }
 </style>

@@ -1,6 +1,8 @@
 <template>
   <div class="main">
-    <ModalPopUp v-if="modalOpen" v-on:close-modal="toggleModal" :APIkey="APIkey"/>
+    <ModalPopUp v-if="modalOpen" v-on:close-modal="toggleModal" :APIkey="APIkey"
+    :cities="cities"
+    />
     <NavCompVue v-on:add-city="toggleModal" v-on:edit-cities="toggleEdit" :addCityActive="addCityActive"
     :isDay="isDay" :isNight="isNight"
     />

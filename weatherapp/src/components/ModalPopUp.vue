@@ -16,7 +16,7 @@ import { collection, addDoc } from "firebase/firestore";
 
 export default {
     name: "PopUp",
-    props: ['APIkey'],
+    props: ['APIkey', "cities"],
     data() {
         return {
             city: "",
@@ -31,19 +31,27 @@ export default {
         async addCity() {
             if (this.city === "") {
                 alert ('Field cannot be empty!')
-            } else {
-                const res = await axios.get(
-                  `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=metric&appid=${this.APIkey}`
-                );
-                const data = await res.data;
-                console.log(data);
-                /* eslint-disable */
-                const docRef = await addDoc(collection(db, "cities"), {
-                    city: this.city,
-                    currentWeather: data,
-                }).then(() => {
-                    this.$emit('close-modal')
-                })
+            } else if (this.cities.some((res) => res.city === this.city.toLowerCase())) {
+                alert(`${this.city} already exists!`)
+            } else  {
+
+                try {
+                    
+                    const res = await axios.get(
+                      `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=metric&appid=${this.APIkey}`
+                    );
+                    const data = await res.data;
+                    console.log(data);
+                    /* eslint-disable */
+                    const docRef = await addDoc(collection(db, "cities"), {
+                        city: this.city,
+                        currentWeather: data,
+                    }).then(() => {
+                        this.$emit('close-modal')
+                    })
+                } catch (error) {
+                    alert(`${this.city} does not exist, please try again!`)
+                }
             }
         }
     }
