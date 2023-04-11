@@ -10,6 +10,8 @@
             :currentWeather="currentWeather"
             />
             <HourlyWeather :forecast="forecast"/>
+            <WeeklyForecast :forecast="forecast" />
+            <AdditionalInfo :currentWeather="currentWeather"/>
         </div>
     </div>
   </div>
@@ -24,6 +26,8 @@ import {  collection, query, where, getDocs } from "firebase/firestore";
 //component
 import CurrentWeather from '../components/CurrentWeather.vue';
 import HourlyWeather from '@/components/HourlyWeather.vue';
+import WeeklyForecast from '@/components/WeeklyForecast.vue';
+import AdditionalInfo from '@/components/AdditionalInfo.vue';
 
 
 export default {
@@ -32,6 +36,8 @@ export default {
     components: {
         CurrentWeather,
         HourlyWeather,
+        WeeklyForecast,
+        AdditionalInfo
     },
     data() {
         return {
