@@ -1,8 +1,15 @@
 <template>
   <div class="main">
     <ModalPopUp v-if="modalOpen" v-on:close-modal="toggleModal" :APIkey="APIkey"/>
-    <NavCompVue v-on:add-city="toggleModal" v-on:edit-cities="toggleEdit" :addCityActive="addCityActive"/>
-    <router-view v-bind:cities="cities" v-bind:edit="edit" :APIkey="APIkey"/>
+    <NavCompVue v-on:add-city="toggleModal" v-on:edit-cities="toggleEdit" :addCityActive="addCityActive"
+    :isDay="isDay" :isNight="isNight"
+    />
+    <br><br><br><br><br>
+    <router-view v-bind:cities="cities" v-bind:edit="edit" :APIkey="APIkey" v-on:is-day="dayTime"
+    v-on:is-night="nightTime"
+    v-on:resetDays="resetDays"
+    :isDay="isDay" :isNight="isNight"
+    />
   </div>
 </template>
 
@@ -24,6 +31,8 @@ export default {
   },
   data() {
     return {
+    isDay: null,
+    isNight: null,
     APIkey: "55fd10a791998ae62adaa1c4ca11749e",
     city: "Bucharest",
     cities: [],
@@ -81,6 +90,16 @@ export default {
       console.log(this.addCityActive)
 
     }
+  },
+  dayTime() {
+    this.isDay = !this.isDay
+  },
+  nightTime() {
+    this.isNight = !this.isNight
+  },
+  resetDays() {
+    this.isDay = false;
+    this.isNight = false;
   }
   },
   watch: {
@@ -101,7 +120,19 @@ export default {
   box-sizing: border-box;
   font-family: "Raleway", sans-serif;
 }
+.day {
+    transition: 500ms ease all;
+    background-color: rgb(59,150,249);
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.86);
 
+}
+
+.night {
+    transition: 500ms ease all;
+    background-color: rgb(20,42,95);
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.86);
+
+}
 .main {
   height: 100vh;
   max-width: 1024px;

@@ -1,5 +1,17 @@
 <template>
-  <h4>weather</h4>
+  <div class="main">
+    <div v-if="loading" class="loading">
+        <span></span>
+    </div>
+    <div v-else class="weather" :class="{day: isDay, night: isNight}">
+        <div class="weather-wrap" >
+            <CurrentWeatherVue
+            :isDay="isDay" :isNight="isNight"
+            :currentWeather="CurrentWeather"
+            />
+        </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -7,22 +19,32 @@ import axios from 'axios';
 import db from '@/firebase/firebaseinit';
 import {  collection, query, where, getDocs } from "firebase/firestore";
 
+//component
+import CurrentWeatherVue from '../components/CurrentWeather.vue';
+
 
 export default {
     name: "WeatherView",
-    props: ["APIkey"],
+    props: ["APIkey", "isDay", "isNight"],
+    components: {
+        CurrentWeatherVue
+    },
     data() {
         return {
             forecast: null,
             currentWeather: null,
             loading: true,
+            currentTime: null,
         }
     },
     created() {
         this.getWeather();
     },
+    beforeUnmount() {
+        this.$emit("resetDays");
+    },
     methods: {
-        getWeather () {
+        getWeather() {
              // eslint-disable-next-line
             const querySnapshot =  getDocs(query(collection(db, 'cities'), where('city', '==', `${this.$route.params.city}`)))
             .then((docs) => {
@@ -34,20 +56,63 @@ export default {
                     this.forecast = res.data
                 }).then(() => {
                     this.loading = false
-                    console.log(this.forecast)
-                    console.log(this.currentWeather)
+                    this.getCurrentTime();
                 })
                 })
             })         
+
+        },
+        getCurrentTime() {
+            const dateObj = new Date();
+            this.currentTime = dateObj.getHours();
+
+            const sunrise = new Date(this.currentWeather.sys.sunrise * 1000).getHours();
+            const sunset = new Date(this.currentWeather.sys.sunset * 1000).getHours();
+
+            if (this.currentWeather > sunrise && this.currentWeather < sunset) {
+                this.$emit('is-day');
+            } else {
+                this.$emit('is-night');
+            }
 
         }
     }
 }
 </script>
 
-<style>
-    h4 {
-        padding-top: 100px;
+<style lang="scss" scoped>
+   .loading {
+    @keyframes spin {
+        to {
+            transform: rotateZ(360deg);
+        }
     }
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    span {
+        display: block;
+        width: 60px;
+        height: 60px;
+        margin: 0 auto;
+        border: 2px solid transparent;
+        border-top-color: #142a5f;
+        border-radius: 50%;
+        animation: spin ease 1000ms infinite;
+    }
+   }
+   .weather {
+    transition: 500ms ease;
+    overflow: scroll;
+    width: 100%;
+    height: 100%;
 
+    .weather-wrap {
+        overflow: hidden;
+        max-width: 1024px;
+        margin: 0 auto;
+    }
+   }
 </style>

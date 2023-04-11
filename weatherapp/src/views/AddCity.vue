@@ -23,9 +23,9 @@ export default {
 
 <style lang="scss" scoped>
 .grid {
-  margin-top: 15px;
+  // margin-top: 100px;
   display: grid;
-  padding: 40px 20px 30px 20px;  
+  padding: 30px 20px 30px 20px;  
   background-color: #31363d;
   width: 100%;
   // min-height: 100vh;

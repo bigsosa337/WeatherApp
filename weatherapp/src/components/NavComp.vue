@@ -11,8 +11,18 @@
           </nav>
         </header>
     
-        <header v-else>
-        
+        <header v-else class="container" :class="{day: isDay, night: isNight}">
+            <nav>
+                <router-link class="router-link" :to="{name: 'AddCity'}">
+                    <i class="fas fa-plus"></i>
+                </router-link>
+                <span>
+                    {{ new Date().toLocaleDateString("en-us", { weekday: "short"}) }},
+                    {{ new Date().toLocaleDateString("en-us", { month: "short"}) }},
+                    {{ new Date().toLocaleDateString("en-us", { day: "2-digit"}) }},
+                </span>
+                <span>&deg; C</span>
+            </nav>
         </header>
     </div>
 </template>
@@ -20,7 +30,7 @@
 <script>
 export default {
     name: "NavComponent",
-    props: ['addCityActive'],
+    props: ['addCityActive', 'isDay', 'isNight'],
     methods: {
         addCity() {
             this.$emit('add-city');
@@ -40,15 +50,17 @@ export default {
 .add-city {
         background-color: #313640;
         border-radius: 0 0 10px 10px;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.86);
+
     }
+
 header {
-    .navigation {
-    z-index: 99;
+ 
+    // z-index: 99;
     position: fixed;
-    max-width: 1920px;
+    max-width: 1024px;
     width: 100%;
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.86);
-  }
+  
     nav {
         display: flex;
         color: #ffff;
@@ -58,6 +70,10 @@ header {
 
     .edit-active {
         color: rgba(210, 75, 75, 1);
+    }
+
+    .router-link {
+        color: white;
     }
     .right {
         i {
