@@ -1,16 +1,29 @@
 <template>
   <div class="main">
-    <ModalPopUp v-if="modalOpen" v-on:close-modal="toggleModal" :APIkey="APIkey"
+    <ModalPopUp class="modalpop" 
+    v-if="modalOpen" 
+    v-on:close-modal="toggleModal" 
+    :APIkey="APIkey"
     :cities="cities"
     />
-    <NavCompVue v-on:add-city="toggleModal" v-on:edit-cities="toggleEdit" :addCityActive="addCityActive"
-    :isDay="isDay" :isNight="isNight"
+    <NavCompVue class="nav"
+     v-on:add-city="toggleModal" 
+     v-on:edit-cities="toggleEdit" 
+     :addCityActive="addCityActive"
+    :isDay="isDay" 
+    :isNight="isNight"
     />
     <br><br><br><br><br>
-    <router-view v-bind:cities="cities" v-bind:edit="edit" :APIkey="APIkey" v-on:is-day="dayTime"
+    <router-view 
+    class="routerview"
+    v-bind:cities="cities" 
+    v-bind:edit="edit" 
+    :APIkey="APIkey" 
+    v-on:is-day="dayTime"
     v-on:is-night="nightTime"
     v-on:resetDays="resetDays"
-    :isDay="isDay" :isNight="isNight"
+    :isDay="isDay" 
+    :isNight="isNight"
     />
   </div>
 </template>
@@ -127,6 +140,22 @@ export default {
   box-sizing: border-box;
   font-family: "Raleway", sans-serif;
 }
+
+.nav {
+  display: flex;
+  justify-content: center;
+}
+.modalpop {
+  margin-right: 20px;
+  padding: 20px;
+}
+
+// .routerview {
+//   display: flex;
+//   align-self: center;
+//   justify-self: center;
+//   max-width: 1000px;
+// }
 .day {
     transition: 500ms ease all;
     background-color: rgb(59,150,249);
@@ -142,12 +171,18 @@ export default {
 }
 .main {
   height: 100vh;
-  max-width: 1024px;
+  max-width: 100%;
+  padding: 0 70px 0 70px;
   margin: auto;
-
+ 
   .container {
     padding: 0 20px;
 
   }
 }
+@media(max-width: 500px) {
+    .main {
+      padding: 0;
+    }
+  }
 </style>

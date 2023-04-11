@@ -62,12 +62,14 @@ export default {
 .modal {
     z-index: 101;
     background: rgba(0,0,0, 0.5);
+    backdrop-filter: blur(60px);
     position: fixed;
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-right: 40px;
 
     label {
         color: white;
