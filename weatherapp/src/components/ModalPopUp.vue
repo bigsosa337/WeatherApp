@@ -11,6 +11,7 @@
 <script>
 import axios from 'axios';
 import db from "../firebase/firebaseinit"
+import { collection, addDoc } from "firebase/firestore"; 
 
 
 export default {
@@ -36,12 +37,12 @@ export default {
                 );
                 const data = await res.data;
                 console.log(data);
-
-                db.collection('cities').doc().set({
+                /* eslint-disable */
+                const docRef = await addDoc(collection(db, "cities"), {
                     city: this.city,
                     currentWeather: data,
                 }).then(() => {
-                    this.$emit('close-model')
+                    this.$emit('close-modal')
                 })
             }
         }

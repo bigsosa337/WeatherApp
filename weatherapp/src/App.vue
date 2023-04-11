@@ -11,7 +11,7 @@
 //dependencies
 import axios from "axios";
 import db from "./firebase/firebaseinit"
-import { collection, getDocs, updateDoc } from "firebase/firestore"
+import { collection, updateDoc, onSnapshot } from "firebase/firestore"
 //components
 import NavCompVue from './components/NavComp.vue';
 import ModalPopUp from "./components/ModalPopUp.vue";
@@ -34,29 +34,31 @@ export default {
     this.getCityWeather();
   },
   methods: {
-    async getCityWeather() {
-    const citiesCollection = collection(db, "cities");
 
-    const querySnapshot = await getDocs(citiesCollection);
-    querySnapshot.forEach(async(doc) => {
-      console.log(doc.data().city);
+  async getCityWeather() {
+  const fireDB = collection(db, "cities");
 
-      try {
-        const response = await axios.get(
-          `https://api.openweathermap.org/data/2.5/weather?q=${doc.data().city}&units=metric&appid=${this.APIkey}`
-        );
-        const data = response.data;
-
-        await updateDoc(doc.ref, {
-          currentWeather: data,
-        }).then(() => {
-          this.cities.push(doc.data())
-        });
-      } catch (err) {
-        console.log(err);
+  onSnapshot(fireDB, async (snap) => {
+    snap.docChanges().forEach(async (change) => {
+      const doc = change.doc;
+      if (change.type === "added") {
+        try {
+          const response = await axios.get(
+            `https://api.openweathermap.org/data/2.5/weather?q=${doc.data().city}&units=imperial&APPID=${this.APIkey}`
+          );
+          const data = response.data;
+          await updateDoc(doc.ref, {
+            currentWeather: data,
+          });
+          this.cities.push(doc.data());
+        } catch (err) {
+          console.log(err);
+        }
       }
     });
-  },
+  });
+},
+
   toggleModal() {
     this.modalOpen = !this.modalOpen;
   },
