@@ -5,29 +5,33 @@
     </div>
     <div v-else class="weather" :class="{day: isDay, night: isNight}">
         <div class="weather-wrap" >
-            <CurrentWeatherVue
+            <CurrentWeather
             :isDay="isDay" :isNight="isNight"
-            :currentWeather="CurrentWeather"
+            :currentWeather="currentWeather"
             />
+            <HourlyWeather :forecast="forecast"/>
         </div>
     </div>
   </div>
 </template>
 
 <script>
+//db and dependencies import
 import axios from 'axios';
 import db from '@/firebase/firebaseinit';
 import {  collection, query, where, getDocs } from "firebase/firestore";
 
 //component
-import CurrentWeatherVue from '../components/CurrentWeather.vue';
+import CurrentWeather from '../components/CurrentWeather.vue';
+import HourlyWeather from '@/components/HourlyWeather.vue';
 
 
 export default {
     name: "WeatherView",
     props: ["APIkey", "isDay", "isNight"],
     components: {
-        CurrentWeatherVue
+        CurrentWeather,
+        HourlyWeather,
     },
     data() {
         return {
@@ -105,7 +109,7 @@ export default {
    }
    .weather {
     transition: 500ms ease;
-    overflow: scroll;
+    overflow:auto;
     width: 100%;
     height: 100%;
 
@@ -113,6 +117,7 @@ export default {
         overflow: hidden;
         max-width: 1024px;
         margin: 0 auto;
+        
     }
    }
 </style>
