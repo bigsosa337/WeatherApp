@@ -49,6 +49,7 @@ export default {
 <style lang="scss" scoped>
 .container {
     border-radius: 0 0 10px 10px;
+    padding: 0 15px;
 }
 .add-city {
         background-color: #1351ce9c;
@@ -60,7 +61,7 @@ export default {
 
 header {
  
-    // z-index: 99;
+    z-index: 99;
     position: fixed;
     max-width: 1024px;
     width: 100%;

@@ -141,14 +141,14 @@ export default {
   font-family: "Raleway", sans-serif;
 }
 
-.nav {
-  display: flex;
-  justify-content: center;
-}
-.modalpop {
-  margin-right: 20px;
-  padding: 20px;
-}
+// .nav {
+//   display: flex;
+//   justify-content: center;
+// }
+// .modalpop {
+//   margin-right: 20px;
+//   padding: 20px;
+// }
 
 // .routerview {
 //   display: flex;
@@ -171,14 +171,10 @@ export default {
 }
 .main {
   height: 100vh;
-  max-width: 1400px;
+  max-width: 1024px;
   margin: auto;
  
   
 }
-@media(max-width: 500px) {
-    .main {
-      padding: 0;
-    }
-  }
+
 </style>
