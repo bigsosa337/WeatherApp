@@ -1,7 +1,8 @@
 <template>
   <div class="main">
-    <NavCompVue/>
-    <router-view v-bind:cities="cities"/>
+    <ModalPopUp v-if="modalOpen" v-on:close-modal="toggleModal" :APIkey="APIkey"/>
+    <NavCompVue v-on:add-city="toggleModal"/>
+    <router-view v-bind:cities="cities" />
   </div>
 </template>
 
@@ -13,17 +14,20 @@ import db from "./firebase/firebaseinit"
 import { collection, getDocs, updateDoc } from "firebase/firestore"
 //components
 import NavCompVue from './components/NavComp.vue';
+import ModalPopUp from "./components/ModalPopUp.vue";
 
 export default {
   name: "App",
   components: {
-    NavCompVue
+    NavCompVue,
+    ModalPopUp
   },
   data() {
     return {
     APIkey: "8f682a995a53fb3c82ab7fb6f6bcec48",
     city: "Bucharest",
     cities: [],
+    modalOpen: null,
     };
   },
   created() {
@@ -52,6 +56,9 @@ export default {
         console.log(err);
       }
     });
+  },
+  toggleModal() {
+    this.modalOpen = !this.modalOpen;
   },
 
     getCurrentWeather() {

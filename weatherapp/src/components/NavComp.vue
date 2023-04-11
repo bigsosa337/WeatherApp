@@ -5,7 +5,7 @@
         <div class="right">
             <i class="fa fa-pencil"></i>
             <i class="fa fa-refresh"></i>
-            <i class="fa fa-plus-circle"></i>
+            <i @click="addCity" class="fa fa-plus-circle"></i>
         </div>
     </nav>
   </header>
@@ -14,6 +14,11 @@
 <script>
 export default {
     name: "NavComponent",
+    methods: {
+        addCity() {
+            this.$emit('add-city');
+        }
+    }
 }
 </script>
 
