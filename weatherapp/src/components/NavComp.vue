@@ -1,28 +1,36 @@
 <template>
-  <header class="container add-city">
-    <nav>
-        <span>Add City</span>
-        <div class="right">
-            <i @click="editCities" class="fa fa-pencil"></i>
-            <i @click="reloadApp" class="fa fa-refresh"></i>
-            <i @click="addCity" class="fa fa-plus-circle"></i>
-        </div>
-    </nav>
-  </header>
+    <div>
+        <header v-if="addCityActive" class="container add-city">
+          <nav>
+              <span>Add City</span>
+              <div class="right">
+                  <i @click="editCities" ref="editCities" class="fa fa-pencil"></i>
+                  <i @click="reloadApp" class="fa fa-refresh"></i>
+                  <i @click="addCity" class="fa fa-plus-circle"></i>
+              </div>
+          </nav>
+        </header>
+    
+        <header v-else>
+        
+        </header>
+    </div>
 </template>
 
 <script>
 export default {
     name: "NavComponent",
+    props: ['addCityActive'],
     methods: {
         addCity() {
             this.$emit('add-city');
         },
         reloadApp() {
-            location.reload;
+            location.reload();
         },
         editCities() {
             this.$emit('edit-cities');
+            this.$refs.editCities.classList.toggle('edit-active');
         }
     }
 }
@@ -48,6 +56,9 @@ header {
         justify-content: space-between;
     }
 
+    .edit-active {
+        color: rgba(210, 75, 75, 1);
+    }
     .right {
         i {
             font-size: 20px;

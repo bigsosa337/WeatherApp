@@ -25,7 +25,7 @@ export default {
 .grid {
   margin-top: 15px;
   display: grid;
-  padding: 80px 20px 10px 20px;  
+  padding: 40px 20px 30px 20px;  
   background-color: #31363d;
   width: 100%;
   // min-height: 100vh;

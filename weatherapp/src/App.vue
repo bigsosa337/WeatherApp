@@ -1,8 +1,8 @@
 <template>
   <div class="main">
     <ModalPopUp v-if="modalOpen" v-on:close-modal="toggleModal" :APIkey="APIkey"/>
-    <NavCompVue v-on:add-city="toggleModal" v-on:edit-cities="toggleEdit"/>
-    <router-view v-bind:cities="cities" v-bind:edit="edit"/>
+    <NavCompVue v-on:add-city="toggleModal" v-on:edit-cities="toggleEdit" :addCityActive="addCityActive"/>
+    <router-view v-bind:cities="cities" v-bind:edit="edit" :APIkey="APIkey"/>
   </div>
 </template>
 
@@ -24,17 +24,19 @@ export default {
   },
   data() {
     return {
-    APIkey: "8f682a995a53fb3c82ab7fb6f6bcec48",
+    APIkey: "55fd10a791998ae62adaa1c4ca11749e",
     city: "Bucharest",
     cities: [],
     modalOpen: null,
     edit: null,
+    addCityActive: null,
     };
   },
   created() {
     this.getCityWeather();
+    this.checkRoute();
   },
-  methods: {
+  methods: { 
 
   async getCityWeather() {
   const fireDB = collection(db, "cities");
@@ -42,11 +44,11 @@ export default {
   onSnapshot(fireDB, async (snap) => {
     snap.docChanges().forEach(async (change) => {
       const doc = change.doc;
-      console.log(doc.type)
-        if (change.type === "added" && !doc.Nd) {
+      console.log(change.type)
+        if (change.type === "added" && !change.Nd) {
           try {
             const response = await axios.get(
-              `https://api.openweathermap.org/data/2.5/weather?q=${doc.data().city}&units=imperial&APPID=${this.APIkey}`
+              `https://api.openweathermap.org/data/2.5/weather?q=${doc.data().city}&units=metric&appid=${this.APIkey}`
             );
             const data = response.data;
             await updateDoc(doc.ref, {
@@ -56,8 +58,10 @@ export default {
           } catch (err) {
             console.log(err);
           }
-        } else if (change.type === "added" && doc.Nd) {
+        } else if (change.type === "added" && change.Nd) {
           this.cities.push(doc.data());
+        } else if (change.type === 'removed') {
+          this.cities = this.cities.filter(city => city.city !== doc.data().city)
         }
       });
     });
@@ -68,7 +72,22 @@ export default {
   toggleEdit() {
     this.edit = !this.edit;
   },
+  checkRoute() {
+    if (this.$route.name === "AddCity") {
+      this.addCityActive = true;
+      console.log(this.addCityActive)
+    } else {
+      this.addCityActive = false;
+      console.log(this.addCityActive)
+
+    }
+  }
   },
+  watch: {
+    $route() {
+      this.checkRoute();
+    }
+  }
 };
 
 

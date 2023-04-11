@@ -1,5 +1,5 @@
 <template>
-    <div class="city">
+    <div @click="showWeather" class="city">
         <i @click="removeCity" class="far fa-trash-alt edit" ref="edit" v-if="edit"></i>
         <span>{{ this.city.city }}</span>
         <div class="weather">
@@ -33,7 +33,6 @@ export default {
         console.log(this.city)
     },
     methods: {
-       
         async removeCity() {
         const querySnapshot = await getDocs(query(collection(db, 'cities'), where('city', '==', this.city.city)));         
         querySnapshot.forEach((queryDoc) => {
@@ -45,10 +44,15 @@ export default {
             });
         });
     },
-
+        showWeather(e) {
+            if (e.target === this.$refs.edit) {
+                //
+            } else {
+                this.$router.push({name:"WeatherView", params: {city: this.city.city}})
+            }
     }
 
-    }
+    }}
 
 </script>
 
