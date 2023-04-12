@@ -19,7 +19,7 @@ export default {
     name: "DailyForecast",
     props: ["day"],
     created() {
-        console.log(this.day)
+        // console.log(this.day)
     }
 }
 </script>

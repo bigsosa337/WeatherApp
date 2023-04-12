@@ -5,6 +5,7 @@
     </div>
     <div v-else class="weather" :class="{day: isDay, night: isNight}">
         <div class="weather-wrap" >
+            <!-- THIS IS WHERE WE CALL THE COMPONENTS FOR THE WEATHER INFORMATION -->
             <CurrentWeather
             :isDay="isDay" :isNight="isNight"
             :currentWeather="currentWeather"
@@ -23,7 +24,7 @@ import axios from 'axios';
 import db from '@/firebase/firebaseinit';
 import {  collection, query, where, getDocs } from "firebase/firestore";
 
-//component
+//componentS
 import CurrentWeather from '../components/CurrentWeather.vue';
 import HourlyWeather from '@/components/HourlyWeather.vue';
 import WeeklyForecast from '@/components/WeeklyForecast.vue';
@@ -54,6 +55,8 @@ export default {
         this.$emit("resetDays");
     },
     methods: {
+        //makes api call for detailed info for 1 city
+        // the "forecast" attribute takes its value
         getWeather() {
              // eslint-disable-next-line
             const querySnapshot =  getDocs(query(collection(db, 'cities'), where('city', '==', `${this.$route.params.city}`)))

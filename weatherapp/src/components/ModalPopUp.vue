@@ -41,7 +41,7 @@ export default {
                       `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=metric&appid=${this.APIkey}`
                     );
                     const data = await res.data;
-                    console.log(data);
+                    // console.log(data);
                     /* eslint-disable */
                     const docRef = await addDoc(collection(db, "cities"), {
                         city: this.city,

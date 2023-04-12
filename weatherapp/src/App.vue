@@ -1,11 +1,13 @@
 <template>
   <div class="main">
+    <!-- THIS IS THE COMPONENT FOR THE POP UP FORM -->
     <ModalPopUp class="modalpop" 
     v-if="modalOpen" 
     v-on:close-modal="toggleModal" 
     :APIkey="APIkey"
     :cities="cities"
     />
+    <!-- COMPONENT FOR NAVIGATION -->
     <NavCompVue class="nav"
      v-on:add-city="toggleModal" 
      v-on:edit-cities="toggleEdit" 
@@ -14,6 +16,7 @@
     :isNight="isNight"
     />
     <br><br><br><br><br>
+    <!-- THIS IS WHERE WE SEE THE PAGES -->
     <router-view 
     class="routerview"
     v-bind:cities="cities" 
@@ -61,7 +64,7 @@ export default {
     this.checkRoute();
   },
   methods: { 
-
+    // THIS FUNCTION READS THE CITIES IN THE DB AND MAKES CALLS TO THE API
   async getCityWeather() {
   const fireDB = collection(db, "cities");
 
