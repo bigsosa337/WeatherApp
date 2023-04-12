@@ -10,4 +10,7 @@ and stores the data in a firestore db.
 
   
     
-### I DO NOT OWN ANY OF THE VISUAL MATERIALS
+### Note!  
+I do not own any of the visual materials!  
+The project has some styling options that only work on chrome and chromnium based browsers
+
